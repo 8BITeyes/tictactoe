@@ -1,0 +1,25 @@
+#gameboard {
+    display: grid;
+    place-items: center;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    width: 500px;
+    height: 500px;
+
+    background-color: gray;
+}
+
+.square {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 92%;
+    height: 92%;
+    margin: 0;
+    font-size: 4rem;
+
+    background-color: hsl(173, 50%, 46%);
+}
+.square:hover {
+    cursor: pointer;
+    background-color: hsl(173, 70%, 65%);
+}
