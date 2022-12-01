@@ -7,7 +7,6 @@ const gameBoard = (() => {
     for(let i = 0; i < 9; i++) {
         display.push('');
     };
-
     display.forEach(item => {
         let piece = document.createElement('div');
         piece.className = "square";
@@ -15,16 +14,15 @@ const gameBoard = (() => {
     });
 
     let game = ['x','o','x','o','x','o','x','o','x'];
-    const changeDisplay = () => function() {     //changes text of display sections to associated game content (i.e."x" or "o")
+    function changeDisplay() {     //changes text of display sections to associated game content (i.e."x" or "o")
         for(let i = 0; i < 9; i++) {
             display[i] = game[i];
-            let x = document.querySelector(`#gameboard > div:nth-child(${[i] + 1})`);
-            console.log(x);
+            let x = document.querySelector(`#gameboard > div:nth-child(${i + 1})`);
             x.textContent = display[i];
         }
     };
 
-    return {changeDisplay}
+    return {game, changeDisplay}
 })();
 
 //GAME OBJECT
@@ -38,5 +36,3 @@ const gameBoard = (() => {
 let Player = (type, name) => {
     return {type, name};
 };
-
-gameBoard.changeDisplay();
