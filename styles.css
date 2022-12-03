@@ -8,7 +8,7 @@
     background-color: gray;
 }
 
-.square {
+#gameboard > div {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -19,7 +19,7 @@
 
     background-color: hsl(173, 50%, 46%);
 }
-.square:hover {
+#gameboard > div:hover {
     cursor: pointer;
     background-color: hsl(173, 70%, 65%);
 }
