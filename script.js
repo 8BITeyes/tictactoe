@@ -100,7 +100,7 @@ const gameFlow = (() => {       //determines whose turn on the board it is; Play
         playerOneIndex = [];
         playerTwoIndex = [];
         displayWinner.textContent = undefined;
-        
+
         for (const section of sections) {
             section.textContent = '';
             gameBoard.changeDisplay();
@@ -116,7 +116,7 @@ const gameFlow = (() => {       //determines whose turn on the board it is; Play
                 case true:
                     if(winningPlayer === undefined) { //If winningPlayer is already defined, then switch breaks
                         winningPlayer = playerOne.name;
-                        displayWinner.textContent = winningPlayer;  //Adds name of winning player visually to page using #winner
+                        displayWinner.textContent = `${winningPlayer} wins`;  //Adds name of winning player visually to page using #winner
                     }else {
                         break;
                     }
@@ -127,7 +127,7 @@ const gameFlow = (() => {       //determines whose turn on the board it is; Play
                 case true:
                     if(winningPlayer === undefined) {
                         winningPlayer = playerTwo.name;
-                        displayWinner.textContent = winningPlayer;
+                        displayWinner.textContent = `${winningPlayer} wins`;
                     } else {
                         break;
                     }
