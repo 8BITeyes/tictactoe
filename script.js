@@ -17,6 +17,7 @@ const gameBoard = (() => {
             displayGame[i] = square.textContent;
         }
     }
+
     return {displayGame, changeDisplay};
 })();
 
@@ -24,6 +25,7 @@ const gameBoard = (() => {
 
 const gameFlow = (() => {       //determines whose turn on the board it is; Player One: 'x' or Player Two: 'o'
     let sections = document.querySelectorAll('#gameboard > div');
+
     for (const section of sections) {
         section.addEventListener('click', function onClick() {
             if (section.textContent === '') {       //only changes board section content if blank
@@ -65,8 +67,8 @@ const gameFlow = (() => {       //determines whose turn on the board it is; Play
         [6, 7, 8]
     ];
 
-    const playerOneIndex = [];
-    const playerTwoIndex = [];
+    let playerOneIndex = [];
+    let playerTwoIndex = [];
     for (const section of sections) {           //checks the board if either player has won the game
         section.addEventListener('click', function checkWin() {
             for (let i = 0; i < gameBoard.displayGame.length; i++) { //gameBoard.displayGame in first IIFE
@@ -89,9 +91,21 @@ const gameFlow = (() => {       //determines whose turn on the board it is; Play
                     }
                 }
             };
-            console.log(checkWinner());
+            checkWinner();
         });
     };
+
+    const resetButton = document.querySelector('#reset'); //Resets board and indexes of players
+    resetButton.addEventListener('click', () => {
+        playerOneIndex = [];
+        playerTwoIndex = [];
+        displayWinner.textContent = undefined;
+        
+        for (const section of sections) {
+            section.textContent = '';
+            gameBoard.changeDisplay();
+        }
+    });
 
     const checkWinner = () => {
         let winningPlayer;
@@ -102,6 +116,7 @@ const gameFlow = (() => {       //determines whose turn on the board it is; Play
                 case true:
                     if(winningPlayer === undefined) { //If winningPlayer is already defined, then switch breaks
                         winningPlayer = playerOne.name;
+                        displayWinner.textContent = winningPlayer;  //Adds name of winning player visually to page using #winner
                     }else {
                         break;
                     }
@@ -112,6 +127,7 @@ const gameFlow = (() => {       //determines whose turn on the board it is; Play
                 case true:
                     if(winningPlayer === undefined) {
                         winningPlayer = playerTwo.name;
+                        displayWinner.textContent = winningPlayer;
                     } else {
                         break;
                     }
@@ -119,6 +135,8 @@ const gameFlow = (() => {       //determines whose turn on the board it is; Play
         });
         return winningPlayer;
     };
+
+    const displayWinner = document.querySelector('#winner'); //displays winner on page using #winner div
 
     return {playerOneIndex, playerTwoIndex, checkWinner}
 })();
