@@ -116,8 +116,7 @@ const gameFlow = (() => {       //determines whose turn on the board it is; Play
                 case true:
                     if(winningPlayer === undefined) { //If winningPlayer is already defined, then switch breaks
                         winningPlayer = playerOne.name;
-                        displayWinner.textContent = `${winningPlayer} wins`;  //Adds name of winning player visually to page using #winner
-                    }else {
+                        displayWinner.textContent = `${winningPlayer} wins`;  //Adds name of winning player visually to page
                         break;
                     }
             };

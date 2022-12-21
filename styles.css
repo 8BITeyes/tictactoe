@@ -2,6 +2,7 @@
     font-family: 'Courier New', Courier, monospace;
     --main-color: hsl(173, 50%, 46%);
     --main-bg-color: hsl(173, 30%, 70%);
+    --form-color: hsl(173, 83%, 57%);
 }
 
 body {
@@ -9,32 +10,109 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
 
     height: 100vh;
     margin: 0;
     background-color: var(--main-bg-color);
 }
 
+/* TITLE & PLAYERS */
+
 #title {
     margin-bottom: 50px;
 }
 #title > h2 {
     white-space: nowrap;
+    font-size: 2em;
+}
+
+/* PLAYER ANIMATION & FORM */
+#players {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    height: auto;
+    border: 1px solid red;
+    position: absolute;
+    
+    justify-content: center;
+    padding: 15px;
+    background-color: var(--form-color);
+    box-shadow: 5px 5px 5px black;
+}
+#players {
+    top: -400px;
+    animation: drop 0.5s ease forwards;
+    z-index: 5;
+}
+@keyframes drop{
+    0%{opacity: 0}
+    70%{transform: translateY(900px)}
+    100%{transform: translateY(850px); opacity: 1;}
+}
+.player {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 25px;
+    font-size: 1.4em;
+    width: 510px;
+}
+
+label {
+    display: flex;
+    align-items: center;
+}
+
+input {
+    width: 210px;
+    height: 30px;
+
+    border-radius: 5px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+#submit {
+    display: flex;
+    justify-content: end;
+    margin-right: 25px;
+    padding: 0;
+}
+#confirm{
+    width: 100px;
+    height: 35px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    background-color: var(--main-color);
+    box-shadow: 1px 2px 1px black;
+    border: none;
+}
+#confirm:hover {
+    cursor: pointer;
+    background-color: var(--main-bg-color);
 }
 
 #winner {
     margin-bottom: 50px;
 }
 
+
+
+/* MAIN BOARD */
+
 #gameboard {
     display: grid;
     position: relative;
     place-items: center;
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
-    width: 500px;
-    height: 500px;
+    width: 600px;
+    height: 600px;
 
     background-color: gray;
+    pointer-events: none;
 }
 #gameboard > div {
     display: flex;
@@ -54,8 +132,8 @@ body {
 
 @media (max-width: 1000px) {
     #gameboard {
-        width: 800px;
-        height: 800px;
+        width: 700px;
+        height: 700px;
     }
 
     #reset {
@@ -65,12 +143,17 @@ body {
 }
 
 #reset {
-    font-size: 1.5em;
-    font-weight: bold;
-    background-color: var(--main-bg-color);
+    width: 150px;
+    height: 60px;
     margin: 45px;
     border-radius: 5px;
+
+    font-size: 1.5em;
+    font-weight: bold;
+
+    background-color: var(--main-bg-color);
 }
 #reset:hover{
     cursor: pointer;
+    background-color: var(--main-color);
 }
