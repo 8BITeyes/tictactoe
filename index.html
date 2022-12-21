@@ -7,12 +7,12 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <form id="players">
-        <div class="player">
+    <form id="player-form">
+        <div class="player-input">
             <label for="player-one">PLAYER ONE NAME (X):</label>
             <input type="text" for="player-one" id="player-one">
         </div>
-        <div class="player">
+        <div class="player-input">
             <label for="player-two">PLAYER TWO NAME (O):</label> 
             <input type="text" for="player-two" id="player-two">
         </div>
@@ -20,6 +20,21 @@
             <button type="button" id="confirm">SUBMIT</button>
         </div>
     </form>
+
+    <div id="players">
+        <div class="player">
+            <div class="name"></div>
+            <div class="wins">wins: 0</div>
+            <button class="change">Change</button>
+        </div>
+
+        <div class="player">
+            <div class="name"></div>
+            <div class="wins">wins: 0</div>
+            <button class="change">Change</button>
+        </div>
+    </div>
+
     <div id="title">
         <h2>TIC-TAC-TOE</h2>
     </div>

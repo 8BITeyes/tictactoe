@@ -27,21 +27,37 @@ body {
     font-size: 2em;
 }
 
+.change {
+    width: auto;
+    height: auto;
+    border-radius: 5px;
+
+    font-size: 1em;
+    font-weight: bold;
+
+    background-color: var(--main-bg-color);
+    pointer-events: none;
+}
+.change:hover {
+    cursor: pointer;
+    background-color: var(--main-color);
+}
+
 /* PLAYER ANIMATION & FORM */
-#players {
+#player-form {
     display: flex;
     flex-direction: column;
     width: auto;
     height: auto;
-    border: 1px solid red;
     position: absolute;
     
+    border-radius: 5px;
     justify-content: center;
     padding: 15px;
     background-color: var(--form-color);
     box-shadow: 5px 5px 5px black;
 }
-#players {
+#player-form {
     top: -400px;
     animation: drop 0.5s ease forwards;
     z-index: 5;
@@ -51,7 +67,7 @@ body {
     70%{transform: translateY(900px)}
     100%{transform: translateY(850px); opacity: 1;}
 }
-.player {
+.player-input {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -99,6 +115,32 @@ input {
     margin-bottom: 50px;
 }
 
+
+/* PLAYER DISPLAY */
+
+#players {
+    display: flex;
+    width: 600px;
+    justify-content: space-between;
+    font-size: 1.3em;
+}
+
+.player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 5px;
+}
+
+.player > div {
+    margin-bottom: 10px;
+}
+
+.name {
+    font-size: 1.5em;
+    font-weight: bold;
+}
 
 
 /* MAIN BOARD */
