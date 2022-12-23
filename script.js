@@ -2,7 +2,9 @@
 
 const gameBoard = (() => {
     let wholeBoard = document.querySelector('#gameboard'); //full game board container
-    
+    let form = document.getElementById('player-form');
+    let changeNames = document.querySelectorAll('.change');
+
     let displayGame = [];       //9 sections display of tic tac toe board
     for(let i = 0; i < 9; i++) {
         displayGame.push('');
@@ -18,8 +20,10 @@ const gameBoard = (() => {
         }
     }
 
-    let form = document.getElementById('player-form');
-    let changeNames = document.querySelectorAll('.change');
+    changeNames.forEach(button => 
+        button.addEventListener('click', event => {
+            gameBoard.form.style.display = "";
+    }));
 
     return {displayGame, changeDisplay, wholeBoard, changeNames, form};
 })();
@@ -98,20 +102,18 @@ const gameFlow = (() => {       //determines whose turn on the board it is; Play
         });
     };
 
-    const resetButton = document.querySelector('#reset'); //Resets board and indexes of players
-    resetButton.addEventListener('click', () => {
-        playerOneIndex = [];
-        playerTwoIndex = [];
-        displayWinner.textContent = undefined;
+    //WIN COUNT DISPLAY UPDATE
+    
+    let playerOneWins = document.querySelector('.wins-one');
+    let playerTwoWins = document.querySelector('.wins-two');
 
-        for (const section of sections) {
-            section.textContent = '';
-            gameBoard.changeDisplay();
-        }
-    });
 
-    const checkWinner = () => {
-        let winningPlayer;
+    let winCountOne = 0;
+    let winCountTwo = 0;
+    
+    let winningPlayer;
+
+    const checkWinner = () => { //Checks array for win
         winningCombo.forEach((key) => {
             switch(key.every(key => playerOneIndex.includes(key))) {
                 case false:
@@ -120,6 +122,8 @@ const gameFlow = (() => {       //determines whose turn on the board it is; Play
                     if(winningPlayer === undefined) { //If winningPlayer is already defined, then switch breaks
                         winningPlayer = playerSubmit.playerOne.name;
                         displayWinner.textContent = `${winningPlayer} wins`;  //Adds name of winning player visually to page
+                        winCountOne++;
+                        playerOneWins.textContent = `wins: ${winCountOne}`;
                         break;
                     }
             };
@@ -130,13 +134,29 @@ const gameFlow = (() => {       //determines whose turn on the board it is; Play
                     if(winningPlayer === undefined) {
                         winningPlayer = playerSubmit.playerTwo.name;
                         displayWinner.textContent = `${winningPlayer} wins`;
-                    } else {
-                        break;
+                        winCountTwo++;
+                        playerTwoWins.textContent = `wins: ${winCountTwo}`;
                     }
             };
         });
+
         return winningPlayer;
     };
+
+    const resetButton = document.querySelector('#reset'); //Resets board and indexes of players
+    resetButton.addEventListener('click', () => {
+        playerOneIndex = [];
+        playerTwoIndex = [];
+        displayWinner.textContent = undefined;
+
+        for (const section of sections) {
+            section.textContent = '';
+            gameBoard.changeDisplay();
+        }
+
+        winningPlayer = undefined; //Resets winningPlayer variable (line 129) so checkWinner and win counts can reset
+    });
+
 
     const displayWinner = document.querySelector('#winner'); //displays winner on page using #winner div
 
@@ -161,8 +181,7 @@ const playerSubmit = (() => {
     let secondPlayerName = document.querySelector('.player:nth-child(2) > .name');
 
 
-    const submitButton = document.querySelector('#confirm'); //Form submit button
-    submitButton.addEventListener('click', function addPlayers() {
+    const addPlayers = () => {
         if(firstPlayerInput.value === '' || secondPlayerInput.value === '') {
             alert('please fill in all player names');
         } else {
@@ -176,9 +195,20 @@ const playerSubmit = (() => {
             gameBoard.changeNames.forEach(button => button.style.pointerEvents = "auto");
             gameBoard.wholeBoard.style.pointerEvents = "auto";
         }
+    };
+
+    const submitButton = document.querySelector('#confirm'); //Form submit button
+    submitButton.addEventListener('click', addPlayers);
+    firstPlayerInput.addEventListener('keydown', (event) => { //Submits form when enter key is hit while focused on input
+        if(event.key === "Enter") {
+            addPlayers();
+        }
     });
+    secondPlayerInput.addEventListener('keydown', (event) => {
+        if(event.key === "Enter") {
+            addPlayers();
+        }
+    })
 
-    return{playerOne, playerTwo};
+    return{playerOne, playerTwo, addPlayers};
 })();
-
-//PLAYER FACTORY
